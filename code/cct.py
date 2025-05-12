@@ -1,4 +1,4 @@
-
+#assignment sections are in comments to clarify/separate where things are
 #import modules
 import pandas as pd
 import numpy as np
@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from scipy.stats import mode
 from pathlib import Path
 
-#Used ChatGPT to fix file path & plot saving issues with this part
+#Used ChatGPT to fix file path & plot saving issues with this part and other path/DIR lines
 # Set base path to project root regardless of where script is run
 BASE_DIR = Path(__file__).resolve().parents[1]
 PLOTS_DIR = BASE_DIR / 'plots'
@@ -38,7 +38,7 @@ with pm.Model() as cct_model:
     prob = Z * D_reshaped + (1 - Z) * (1 - D_reshaped)
     #likelihood equation, using reshaped data
     Lh = pm.Bernoulli('Lh', p=prob, observed=data)
-    
+
 ### PERFORM INFERENCE
     #take sample
     trace = pm.sample(draws=2000, chains=4, tune=1000, target_accept=0.9)
@@ -47,7 +47,7 @@ with pm.Model() as cct_model:
 summary = az.summary(trace, var_names=['D', 'Z'])
 print(summary)
 
-#visualize posterior dist for competence
+#visualize posterior distribution for competence
 az.plot_posterior(trace, var_names=['D'])
 plt.tight_layout()
 plt.savefig(PLOTS_DIR / 'competence_posteriors.png')
@@ -80,3 +80,10 @@ plt.savefig(PLOTS_DIR / 'consensus_posteriors.png')
 majority = mode(data, axis=0, keepdims=False).mode
 print('naive majority vote answer key:')
 print(majority)
+
+
+### OTHER SOURCES USED:
+#pyMC documentation: https://www.pymc.io/projects/docs/en/v5.4.0/api/generated/pymc.Model.html
+#     and https://www.pymc.io/projects/docs/en/stable/learn/core_notebooks/pymc_overview.html 
+#Stack Overflow
+#class lectures & code examples (looked at model structure and plotting) from the repo
