@@ -50,7 +50,7 @@ print(summary)
 #pair plot
 az.plot_pair(trace, var_names=['D', 'Z'], kind='scatter', divergences=True)
 plt.tight_layout()
-plt.savefig(PLOTS_DIR / pair_plot_diagnostics.png')
+plt.savefig(PLOTS_DIR / 'pair_plot_diagnostics.png')
 
 #visualize posterior distribution for competence
 az.plot_posterior(trace, var_names=['D'])
